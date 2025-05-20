@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
         spawner.enabled = true;
 
         score = 0;
+        if(scoreText == null)
+            return;
         scoreText.text = score.ToString();
     }
 
@@ -66,6 +68,8 @@ public class GameManager : MonoBehaviour
     public void IncreaseScore(int points)
     {
         score += points;
+        if(scoreText == null)
+            return;
         scoreText.text = score.ToString();
 
         float hiscore = PlayerPrefs.GetFloat("hiscore", 0);
