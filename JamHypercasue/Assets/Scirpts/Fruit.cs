@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 public class Fruit : MonoBehaviour
 {
     public GameObject whole;
     public GameObject sliced;
+    public bool isSliced = false;
 
     private Rigidbody fruitRigidbody;
     private Collider fruitCollider;
@@ -18,6 +20,14 @@ public class Fruit : MonoBehaviour
         juiceEffect = GetComponentInChildren<ParticleSystem>();
     }
 
+    private void OnDestroy()
+    {
+        if (!isSliced && FindAnyObjectByType<GameManager>().isGameRunning)
+        {
+            FindAnyObjectByType<Life>().TakeDamage(1);
+        }
+    }
+
     private void Slice(Vector3 direction, Vector3 position, float force)
     {
         GameManager.Instance.IncreaseScore(points);
@@ -28,6 +38,7 @@ public class Fruit : MonoBehaviour
 
         // Enable the sliced fruit
         sliced.SetActive(true);
+        isSliced = true;
         juiceEffect.Play();
 
         // Rotate based on the slice angle
@@ -50,6 +61,7 @@ public class Fruit : MonoBehaviour
         {
             print("slice");
             Blade blade = other.GetComponent<Blade>();
+            FindAnyObjectByType<GameManager>().time += points;
             Slice(blade.direction, blade.transform.position, blade.sliceForce);
         }
     }

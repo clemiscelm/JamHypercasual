@@ -7,7 +7,7 @@ public class Bomb : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GetComponent<Collider>().enabled = false;
-            GameManager.Instance.Explode();
+            FindAnyObjectByType<Life>().TakeDamage(1);
         }
     }
 
