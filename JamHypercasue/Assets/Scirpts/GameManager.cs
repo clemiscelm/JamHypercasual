@@ -48,11 +48,18 @@ public class GameManager : MonoBehaviour
                 if(PlayerData.GetPlayerCurrentLevel() % 5 == 0)
                 {
                     spawner.bombChance += 0.01f;
+                    spawner.luckyChance -= 0.01f;
+                    spawner.comboChance += 0.01f;
                     spawner.minSpawnDelay -= 0.05f;
                     spawner.maxSpawnDelay -= 0.05f;
                     maxTime += 5f;
                     if(spawner.bombChance > 0.25f)
                         spawner.bombChance = 0.25f;
+                    if (spawner.luckyChance < 0)
+                        spawner.luckyChance = 0;
+                    if (spawner.comboChance > 0.25f)
+                        spawner.comboChance = 0.25f;
+                        
                 }
             }
         }
@@ -64,6 +71,7 @@ public class GameManager : MonoBehaviour
         if (time >= maxTime)
         {
             time = maxTime;
+            PlayerData.InccrementPlayerLevel();
             resetGame();
             blade.gameObject.SetActive(false);
             spawner.gameObject.SetActive(false);
@@ -94,7 +102,7 @@ public class GameManager : MonoBehaviour
         isGameRunning = false;
         level++;
         
-        //TextLevel.text = "Level " + level.ToString();
+        //TextLevel.text = "Level " + PlayerData.GetPlayerCurrentLevel().ToString();
         
         if (PlayerData.GetPlayerCurrentLevel() == 1)
             maxTime = 10;

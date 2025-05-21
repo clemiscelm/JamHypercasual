@@ -9,10 +9,13 @@ public class Spawner : MonoBehaviour
     public GameObject[] fruitPrefabs;
     public GameObject bombPrefab;
     public GameObject luckyPrefab;
+    public GameObject comboPrefab;
     [Range(0f, 1f)]
     public float bombChance = 0.05f;
     [Range(0f, 1f)]
     public float luckyChance = 0.05f;
+    [Range(0f, 1f)]
+    public float comboChance = 0.05f;
 
     public float minSpawnDelay = 0.25f;
     public float maxSpawnDelay = 1f;
@@ -51,10 +54,12 @@ public class Spawner : MonoBehaviour
             if (Random.value < bombChance) {
                 prefab = bombPrefab;
             }
-            else if (Random.value < luckyChance) {
+            if (Random.value < luckyChance) {
                 prefab = luckyPrefab;
             }
-
+            if(Random.value < comboChance) {
+                prefab = comboPrefab;
+            }
             Vector3 position = new Vector3
             {
                 x = Random.Range(spawnArea.bounds.min.x, spawnArea.bounds.max.x),
