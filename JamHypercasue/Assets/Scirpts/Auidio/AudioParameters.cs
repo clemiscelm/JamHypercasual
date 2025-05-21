@@ -11,11 +11,11 @@ public class AudioParameters : MonoBehaviour
 
     private void Awake()
     {
-        if (PlayerPrefs.HasKey(ProjectConst.Sfx))
+        if (!PlayerPrefs.HasKey(ProjectConst.Sfx))
         {
             PlayerPrefs.SetFloat(ProjectConst.Sfx, 0.5f);
         }
-        if (PlayerPrefs.HasKey(ProjectConst.Music))
+        if (!PlayerPrefs.HasKey(ProjectConst.Music))
         {
             PlayerPrefs.SetFloat(ProjectConst.Music, 0.5f);
         }
@@ -24,6 +24,12 @@ public class AudioParameters : MonoBehaviour
         _musicSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat(ProjectConst.Music));
         _sfxSlider.onValueChanged.AddListener(x => SetVolume(ProjectConst.Sfx, x));
         _musicSlider.onValueChanged.AddListener(x => SetVolume(ProjectConst.Music, x));
+    }
+
+    private void Start()
+    {
+        SetVolume(ProjectConst.Sfx, PlayerPrefs.GetFloat(ProjectConst.Sfx));
+        SetVolume(ProjectConst.Music, PlayerPrefs.GetFloat(ProjectConst.Music));
     }
 
     private void OnDestroy()
