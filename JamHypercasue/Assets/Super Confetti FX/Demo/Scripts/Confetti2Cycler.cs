@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Confetti2
 {
     public class Confetti2Cycler : MonoBehaviour
     {
+        public bool wantstoRotate = false;
         [SerializeField]
         List<GameObject> listOfEffects;
 
@@ -34,12 +36,14 @@ namespace Confetti2
             {
                 Destroy(instantiatedEffect);
                 instantiatedEffect = Instantiate(listOfEffects[effectIndex], transform.position, transform.rotation) as GameObject;
-                instantiatedEffect.transform.localScale = new Vector3(6, 6, 6);
+                instantiatedEffect.transform.localScale = new Vector3(8, 8, 8);
                 timeOfLastInstantiate = Time.time;
                 if (effectIndex < listOfEffects.Count - 1)
                     effectIndex++;
                 else
                     effectIndex = 0;
+                
+                
             }
         }
     }

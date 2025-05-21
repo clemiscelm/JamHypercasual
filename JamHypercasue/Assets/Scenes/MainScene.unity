@@ -1843,12 +1843,10 @@ MonoBehaviour:
   blade: {fileID: 296088993}
   spawner: {fileID: 113355167}
   scoreText: {fileID: 436356405}
-  fadeImage: {fileID: 111578929}
   time: 0
   maxTime: 30
   slider: {fileID: 550427754}
   TextLevel: {fileID: 619037759}
-  gameOverPanel: {fileID: 2031398115}
   isGameRunning: 0
 --- !u!4 &892210725
 Transform:
@@ -1881,6 +1879,8 @@ MonoBehaviour:
   - {fileID: 46384000}
   - {fileID: 917363447}
   - {fileID: 382956492}
+  _lifeColor: {r: 0, g: 0, b: 0, a: 0}
+  _noLifeColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &917363447
 GameObject:
   m_ObjectHideFlags: 0
@@ -2500,7 +2500,7 @@ GameObject:
   - component: {fileID: 1839340231}
   - component: {fileID: 1839340230}
   m_Layer: 5
-  m_Name: Congradulation (1)
+  m_Name: Tap to pass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
