@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Blade blade;
     [SerializeField] private Spawner spawner;
     [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private Image fadeImage;
     [SerializeField] public float time = 0f;
     [SerializeField] private float maxTime = 30f;
     [SerializeField] private Slider slider;
@@ -95,7 +94,7 @@ public class GameManager : MonoBehaviour
         isGameRunning = false;
         level++;
         
-        TextLevel.text = "Level " + level.ToString();
+        //TextLevel.text = "Level " + level.ToString();
         
         if (PlayerData.GetPlayerCurrentLevel() == 1)
             maxTime = 10;
@@ -173,20 +172,17 @@ public class GameManager : MonoBehaviour
     {
         float elapsed = 0f;
         float duration = 0.5f;
-        fadeImage.enabled = true;
         // Fade to white
         while (elapsed < duration)
         {
             float t = Mathf.Clamp01(elapsed / duration);
             
-            fadeImage.color = Color.Lerp(Color.clear, Color.white, t);
 
             Time.timeScale = 1f - t;
             elapsed += Time.unscaledDeltaTime;
 
             yield return null;
         }
-        fadeImage.enabled = false;
         yield return new WaitForSecondsRealtime(1f);
 
         resetGame();
@@ -197,7 +193,6 @@ public class GameManager : MonoBehaviour
         while (elapsed < duration)
         {
             float t = Mathf.Clamp01(elapsed / duration);
-            fadeImage.color = Color.Lerp(Color.white, Color.clear, t);
 
             elapsed += Time.unscaledDeltaTime;
 

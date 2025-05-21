@@ -69,6 +69,7 @@ public class Fruit : MonoBehaviour
             FindAnyObjectByType<GameManager>().time += points;
             Slice(blade.direction, blade.transform.position, blade.sliceForce);
             QueueBehaviour.Instance.EjectADummy();
+            InGameUI.Instance.IncrementCombo();
             if(isLucky)
             {
                 FindAnyObjectByType<Life>().AddLife();

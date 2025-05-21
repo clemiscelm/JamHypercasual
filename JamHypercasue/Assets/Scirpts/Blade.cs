@@ -54,6 +54,7 @@ public class Blade : MonoBehaviour
 
     private void StopSlice()
     {
+        InGameUI.Instance.LooseCombo();
         slicing = false;
         sliceCollider.enabled = false;
         sliceTrail.enabled = false;
