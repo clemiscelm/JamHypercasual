@@ -361,7 +361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &113355167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,15 +376,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fruitPrefabs:
   - {fileID: 4016856134951770810, guid: 36574af134e2fae4c9dc4e66a857a3de, type: 3}
-  - {fileID: 4016856134951770810, guid: c686fd2c3a508484bb3d87056c1bb3a3, type: 3}
   bombPrefab: {fileID: 0}
   bombChance: 0
   minSpawnDelay: 0.25
   maxSpawnDelay: 1
   minAngle: -15
   maxAngle: 15
-  minForce: 18
-  maxForce: 22
+  minForce: 30
+  maxForce: 30
   maxLifetime: 5
 --- !u!65 &113355168
 BoxCollider:
@@ -401,7 +400,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -623,7 +622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &296088993
 MonoBehaviour:
   m_ObjectHideFlags: 0

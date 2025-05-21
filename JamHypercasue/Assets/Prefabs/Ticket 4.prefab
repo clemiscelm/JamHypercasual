@@ -4929,7 +4929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5684349035073004299}
   m_Layer: 0
-  m_Name: Ticket 1
+  m_Name: Ticket 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5019,7 +5019,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 5c51b875813139346adaeb5d8da45ff2, type: 2}
+  - {fileID: 2100000, guid: 5fbd0bc8b9fc8a3478b8ee12820d49cd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5188,7 +5188,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8a7936c2d7bf85b45832aa612c1384ae, type: 2}
+  - {fileID: 2100000, guid: 0475d2c2957bfcf4a9e274396243ab2e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5325,7 +5325,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: be89ef7aa20656941b638698802139b3, type: 2}
+  - {fileID: 2100000, guid: be3e8e3c86130f041ae03f300be75870, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5410,5 +5410,5 @@ MonoBehaviour:
   whole: {fileID: 7164568339199216598}
   sliced: {fileID: 5143790362946642271}
   isSliced: 0
-  isLucky: 1
+  isLucky: 0
   points: 1

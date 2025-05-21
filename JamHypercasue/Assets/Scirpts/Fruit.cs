@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Fruit : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Fruit : MonoBehaviour
     private Rigidbody fruitRigidbody;
     private Collider fruitCollider;
     private ParticleSystem juiceEffect;
+    public bool isLucky = false;
 
     public int points = 1;
 
@@ -17,7 +19,7 @@ public class Fruit : MonoBehaviour
     {
         fruitRigidbody = GetComponent<Rigidbody>();
         fruitCollider = GetComponent<Collider>();
-        juiceEffect = GetComponentInChildren<ParticleSystem>();
+        juiceEffect = transform.parent.GetComponentInChildren<ParticleSystem>();
     }
 
     private void OnDestroy()
@@ -43,15 +45,18 @@ public class Fruit : MonoBehaviour
 
         // Rotate based on the slice angle
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        sliced.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        //sliced.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
         Rigidbody[] slices = sliced.GetComponentsInChildren<Rigidbody>();
-
+        sliced.transform.position = transform.position;
+        sliced.transform.rotation = transform.rotation;
         // Add a force to each slice based on the blade direction
         foreach (Rigidbody slice in slices)
         {
             slice.linearVelocity = fruitRigidbody.linearVelocity;
-            slice.AddForceAtPosition(direction * force, position, ForceMode.Impulse);
+            slice.angularVelocity = fruitRigidbody.angularVelocity;
+            //slice.AddForceAtPosition(direction * force, position, ForceMode.Impulse);
+            slice.AddExplosionForce(100, position + Vector3.up * 1.5f, 15f);
         }
     }
 
@@ -63,6 +68,10 @@ public class Fruit : MonoBehaviour
             Blade blade = other.GetComponent<Blade>();
             FindAnyObjectByType<GameManager>().time += points;
             Slice(blade.direction, blade.transform.position, blade.sliceForce);
+            if(isLucky)
+            {
+                FindAnyObjectByType<Life>().AddLife();
+            }
         }
     }
 
