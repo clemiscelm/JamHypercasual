@@ -4,15 +4,19 @@ using System.Collections.Generic;
 using System.Linq;
 using NaughtyAttributes;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class QueueBehaviour : MonoBehaviour
 {
+    public static QueueBehaviour Instance;
+    
     [SerializeField] private Transform _queueOrigin; 
     [SerializeField] private Dummy _dummyPrefab;
     [SerializeField] private int _nbInstance;
     [SerializeField] private float _ejectForce;
     [SerializeField] private float _spawnOffset = 1;
     [SerializeField] private float _spawnRate;
+    [SerializeField] private float _ejectDistance = 4;
 
     private float _queueArrivalZ;
     private List<Dummy> _dummiesList = new();
@@ -21,6 +25,11 @@ public class QueueBehaviour : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        
         for (int i = 0; i < _nbInstance; i++)
         {
             Dummy dummy = Instantiate(_dummyPrefab, _queueOrigin.position + Vector3.back * _spawnOffset * i, Quaternion.identity, transform);
@@ -69,9 +78,13 @@ public class QueueBehaviour : MonoBehaviour
     }
 
     [Button]
-    public void Eject()
+    public void EjectADummy()
     {
-        Dummy dummy = _dummiesList.First();
+        Dummy dummy = _dummiesList.FirstOrDefault(x => (transform.position.z - x.transform.position.z) < _ejectDistance);
+        
+        if(!dummy)
+            return;
+        
         _dummiesList.Remove(dummy);
         dummy.Ragdoll(_ejectForce);
         Destroy(dummy.gameObject, 2);
