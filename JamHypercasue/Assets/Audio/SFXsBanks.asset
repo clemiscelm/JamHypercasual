@@ -12,4 +12,89 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee3427d8d9ab449791a3e555afcc49bf, type: 3}
   m_Name: SFXsBanks
   m_EditorClassIdentifier: 
-  _datasList: []
+  _datasList:
+  - _name: click Menu
+    _clips:
+    - {fileID: 8300000, guid: de5e8558e58bef843b5ff0a32d11ea2f, type: 3}
+    _sizeMax: 9
+    _isLooping: 0
+    _overflowOperation: 2
+    _priority: 0
+    _volume: 0.263
+    _pitch: 1
+    _stereoPan: 0
+    _spatialBlend: 0
+    _reverbZoneMin: 0
+    _dopplerLevel: 0
+    _spreadLevel: 0
+    _rolloffMode: 0
+    _minDistance: 0
+    _maxDistance: 0
+  - _name: GameOver
+    _clips:
+    - {fileID: 8300000, guid: 71a312007d5c8e442a4931a6be81a629, type: 3}
+    _sizeMax: 9
+    _isLooping: 0
+    _overflowOperation: 2
+    _priority: 0
+    _volume: 0.263
+    _pitch: 1
+    _stereoPan: 0
+    _spatialBlend: 0
+    _reverbZoneMin: 0
+    _dopplerLevel: 0
+    _spreadLevel: 0
+    _rolloffMode: 0
+    _minDistance: 0
+    _maxDistance: 0
+  - _name: Level Up
+    _clips:
+    - {fileID: 8300000, guid: c57ce629539406748b4ad113b86ca74b, type: 3}
+    _sizeMax: 9
+    _isLooping: 0
+    _overflowOperation: 2
+    _priority: 0
+    _volume: 0.263
+    _pitch: 1
+    _stereoPan: 0
+    _spatialBlend: 0
+    _reverbZoneMin: 0
+    _dopplerLevel: 0
+    _spreadLevel: 0
+    _rolloffMode: 0
+    _minDistance: 0
+    _maxDistance: 0
+  - _name: Slice
+    _clips:
+    - {fileID: 8300000, guid: bfc41e0152523e348832c314358022d6, type: 3}
+    _sizeMax: 9
+    _isLooping: 0
+    _overflowOperation: 2
+    _priority: 0
+    _volume: 1
+    _pitch: 1
+    _stereoPan: 0
+    _spatialBlend: 0
+    _reverbZoneMin: 0
+    _dopplerLevel: 0
+    _spreadLevel: 0
+    _rolloffMode: 0
+    _minDistance: 0
+    _maxDistance: 0
+  - _name: LostLive
+    _clips:
+    - {fileID: 8300000, guid: fae4d63902b4ca3429f326c0d1a2ea4e, type: 3}
+    _sizeMax: 9
+    _isLooping: 0
+    _overflowOperation: 2
+    _priority: 0
+    _volume: 0.263
+    _pitch: 1
+    _stereoPan: 0
+    _spatialBlend: 0
+    _reverbZoneMin: 0
+    _dopplerLevel: 0
+    _spreadLevel: 0
+    _rolloffMode: 0
+    _minDistance: 0
+    _maxDistance: 0

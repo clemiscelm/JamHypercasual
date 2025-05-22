@@ -1,3 +1,5 @@
+using DG.Tweening;
+using IIMEngine.SFX;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +13,11 @@ public class Life : MonoBehaviour
     {
         life -= damage;
         UILife[life].GetComponent<Image>().color = _noLifeColor;
-
+        foreach (var cam in FindObjectsByType<Camera>(UnityEngine.FindObjectsInactive.Exclude, FindObjectsSortMode.None))
+        {
+            cam.DOShakePosition(0.5f, 5f, 10, 90);
+        }
+        SFXsManager.Instance.PlaySound("LostLive");
         if (life <= 0)
         {
             Die();
@@ -19,6 +25,7 @@ public class Life : MonoBehaviour
     }
     private void Die()
     {
+        SFXsManager.Instance.PlaySound("GameOver");
         GameManager.Instance.Explode();
     }
     public void Restart()

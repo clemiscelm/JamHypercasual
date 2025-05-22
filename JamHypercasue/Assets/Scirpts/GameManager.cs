@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using IIMEngine.SFX;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -20,6 +21,8 @@ public class GameManager : MonoBehaviour
     public bool isGameRunning = false;
     private bool canNewGame = true;
     private bool needNewGame = false;
+    private bool isLose = false;
+    [SerializeField] private GameObject[] winGameObjects;
     int level = 0;
 
     [Header("Pause")] 
@@ -68,6 +71,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        print(PlayerData.GetPlayerCurrentLevel());
+         SFXsManager.Instance.PlaySound("Ambiance");
         if (PlayerData.GetPlayerCurrentLevel() != 1)
         {
             for(int i = 0; i < PlayerData.GetPlayerCurrentLevel() - 1; i++)
@@ -77,9 +82,9 @@ public class GameManager : MonoBehaviour
                     spawner.bombChance += 0.01f;
                     spawner.luckyChance -= 0.01f;
                     spawner.comboChance += 0.01f;
-                    spawner.minSpawnDelay -= 0.05f;
-                    spawner.maxSpawnDelay -= 0.05f;
-                    maxTime += 5f;
+                    spawner.minSpawnDelay -= 0.005f;
+                    spawner.maxSpawnDelay -= 0.005f;
+                    maxTime += 2f;
                     if(spawner.bombChance > 0.25f)
                         spawner.bombChance = 0.25f;
                     if (spawner.luckyChance < 0)
@@ -95,16 +100,34 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         scoreText.text = time.ToString() + " / " + maxTime.ToString();
-        if (time >= maxTime)
+        if (time >= maxTime && !isLose)
         {
             time = maxTime;
             PlayerData.InccrementPlayerLevel();
+            SFXsManager.Instance.PlaySound("Level Up");
             resetGame();
             blade.gameObject.SetActive(false);
             spawner.gameObject.SetActive(false);
+            foreach (var go in winGameObjects)
+            {
+                go.SetActive(true);
+            }
             canNewGame = true;
         }
 
+        if(canNewGame)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                needNewGame = true;
+                canNewGame = false;
+                foreach (var go in winGameObjects)
+                {
+                    go.SetActive(false);
+                }
+                
+            }
+        }
         slider.value = time / maxTime;
         if(needNewGame)
         {
@@ -219,43 +242,19 @@ public class GameManager : MonoBehaviour
 
     public void Explode()
     {
+        canNewGame = false;
         isGameRunning = false;
         blade.enabled = false;
         spawner.enabled = false;
-
+        isLose = true;
         StartCoroutine(ExplodeSequence());
     }
 
     private IEnumerator ExplodeSequence()
     {
-        float elapsed = 0f;
-        float duration = 0.5f;
-        // Fade to white
-        while (elapsed < duration)
-        {
-            float t = Mathf.Clamp01(elapsed / duration);
-            
-
-            Time.timeScale = 1f - t;
-            elapsed += Time.unscaledDeltaTime;
-
-            yield return null;
-        }
-        yield return new WaitForSecondsRealtime(1f);
-
-        resetGame();
-
-        elapsed = 0f;
-
-        // Fade back in
-        while (elapsed < duration)
-        {
-            float t = Mathf.Clamp01(elapsed / duration);
-
-            elapsed += Time.unscaledDeltaTime;
-
-            yield return null;
-        }
+        yield return new WaitForSeconds(0.5f);
+        canNewGame = true;
+        
     }
 
 }

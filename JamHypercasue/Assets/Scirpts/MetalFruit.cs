@@ -1,3 +1,4 @@
+using IIMEngine.SFX;
 using UnityEngine;
 
 public class MetalFruit : MonoBehaviour
@@ -63,9 +64,12 @@ public class MetalFruit : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            InGameUI.Instance.IncrementCombo();
             print("slice");
             pv--;
             juiceEffect.Play();
+            SFXsManager.Instance.PlaySound("Slice");
+
             if(pv > 0)
             {
                 return;
