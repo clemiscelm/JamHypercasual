@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour
     public bool isGameRunning = false;
     private bool canNewGame = true;
     private bool needNewGame = false;
+    private bool isLose = false;
+    [SerializeField] private GameObject[] winGameObjects;
     int level = 0;
 
     [Header("Pause")] 
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+        print(PlayerData.GetPlayerCurrentLevel());
          SFXsManager.Instance.PlaySound("Ambiance");
         if (PlayerData.GetPlayerCurrentLevel() != 1)
         {
@@ -79,9 +82,9 @@ public class GameManager : MonoBehaviour
                     spawner.bombChance += 0.01f;
                     spawner.luckyChance -= 0.01f;
                     spawner.comboChance += 0.01f;
-                    spawner.minSpawnDelay -= 0.05f;
-                    spawner.maxSpawnDelay -= 0.05f;
-                    maxTime += 5f;
+                    spawner.minSpawnDelay -= 0.005f;
+                    spawner.maxSpawnDelay -= 0.005f;
+                    maxTime += 2f;
                     if(spawner.bombChance > 0.25f)
                         spawner.bombChance = 0.25f;
                     if (spawner.luckyChance < 0)
@@ -97,7 +100,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         scoreText.text = time.ToString() + " / " + maxTime.ToString();
-        if (time >= maxTime)
+        if (time >= maxTime && !isLose)
         {
             time = maxTime;
             PlayerData.InccrementPlayerLevel();
@@ -105,6 +108,10 @@ public class GameManager : MonoBehaviour
             resetGame();
             blade.gameObject.SetActive(false);
             spawner.gameObject.SetActive(false);
+            foreach (var go in winGameObjects)
+            {
+                go.SetActive(true);
+            }
             canNewGame = true;
         }
         if(canNewGame)
@@ -113,6 +120,10 @@ public class GameManager : MonoBehaviour
             {
                 needNewGame = true;
                 canNewGame = false;
+                foreach (var go in winGameObjects)
+                {
+                    go.SetActive(false);
+                }
                 
             }
         }
@@ -164,6 +175,8 @@ public class GameManager : MonoBehaviour
         spawner.gameObject.SetActive(true);
         blade.enabled = true;
         spawner.enabled = true;
+        isLose = false;
+        
 
         
     }
@@ -221,7 +234,7 @@ public class GameManager : MonoBehaviour
         isGameRunning = false;
         blade.enabled = false;
         spawner.enabled = false;
-
+        isLose = true;
         StartCoroutine(ExplodeSequence());
     }
 
@@ -229,6 +242,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         canNewGame = true;
+        
     }
 
 }
