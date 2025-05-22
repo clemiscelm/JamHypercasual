@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _musicDatas:
   - _name: main
-    _volume: 0.1
-    _mainClip: {fileID: 8300000, guid: e10f5c68e9e24b140b1773e1038a8fd1, type: 3}
+    _volume: 0.07
+    _mainClip: {fileID: 8300000, guid: 325da0ec71b60814fa2e3a9a906d686b, type: 3}
     _isLooping: 1
     _hasIntro: 0
     _introClip: {fileID: 0}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using IIMEngine.SFX;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
+         SFXsManager.Instance.PlaySound("Ambiance");
         if (PlayerData.GetPlayerCurrentLevel() != 1)
         {
             for(int i = 0; i < PlayerData.GetPlayerCurrentLevel() - 1; i++)
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour
         {
             time = maxTime;
             PlayerData.InccrementPlayerLevel();
+            SFXsManager.Instance.PlaySound("Level Up");
             resetGame();
             blade.gameObject.SetActive(false);
             spawner.gameObject.SetActive(false);
@@ -169,6 +172,7 @@ public class GameManager : MonoBehaviour
 
     public void Explode()
     {
+        canNewGame = false;
         isGameRunning = false;
         blade.enabled = false;
         spawner.enabled = false;
@@ -178,34 +182,8 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ExplodeSequence()
     {
-        float elapsed = 0f;
-        float duration = 0.5f;
-        // Fade to white
-        while (elapsed < duration)
-        {
-            float t = Mathf.Clamp01(elapsed / duration);
-            
-
-            Time.timeScale = 1f - t;
-            elapsed += Time.unscaledDeltaTime;
-
-            yield return null;
-        }
-        yield return new WaitForSecondsRealtime(1f);
-
-        resetGame();
-
-        elapsed = 0f;
-
-        // Fade back in
-        while (elapsed < duration)
-        {
-            float t = Mathf.Clamp01(elapsed / duration);
-
-            elapsed += Time.unscaledDeltaTime;
-
-            yield return null;
-        }
+        yield return new WaitForSeconds(0.5f);
+        canNewGame = true;
     }
 
 }

@@ -1,3 +1,4 @@
+using IIMEngine.SFX;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +12,7 @@ public class Life : MonoBehaviour
     {
         life -= damage;
         UILife[life].GetComponent<Image>().color = _noLifeColor;
-
+        SFXsManager.Instance.PlaySound("LostLive");
         if (life <= 0)
         {
             Die();
@@ -19,6 +20,7 @@ public class Life : MonoBehaviour
     }
     private void Die()
     {
+        SFXsManager.Instance.PlaySound("GameOver");
         GameManager.Instance.Explode();
     }
     public void Restart()

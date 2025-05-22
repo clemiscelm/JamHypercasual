@@ -1,4 +1,5 @@
 using System;
+using IIMEngine.SFX;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -12,6 +13,7 @@ public class Fruit : MonoBehaviour
     private Collider fruitCollider;
     private ParticleSystem juiceEffect;
     public bool isLucky = false;
+    public bool isBombe = false;
 
     public int points = 1;
 
@@ -64,16 +66,21 @@ public class Fruit : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            print("slice");
+            SFXsManager.Instance.PlaySound("Slice");
             Blade blade = other.GetComponent<Blade>();
-            FindAnyObjectByType<GameManager>().time += points;
             Slice(blade.direction, blade.transform.position, blade.sliceForce);
+            if (isBombe)
+            {
+                FindAnyObjectByType<Life>().TakeDamage(1);
+                return;
+            }
             QueueBehaviour.Instance.EjectADummy();
             InGameUI.Instance.IncrementCombo();
             if(isLucky)
             {
                 FindAnyObjectByType<Life>().AddLife();
             }
+            FindAnyObjectByType<GameManager>().time += points;
         }
     }
 
