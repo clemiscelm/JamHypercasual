@@ -1,3 +1,4 @@
+using DG.Tweening;
 using IIMEngine.SFX;
 using UnityEngine;
 
@@ -15,6 +16,8 @@ public class MetalFruit : MonoBehaviour
 
     public int points = 1;
     public int pv = 5;
+    public float scaleMultiplier = 2f;  // Facteur de grossissement
+    public float duration = 0.2f; 
 
     private void Awake()
     {
@@ -69,11 +72,16 @@ public class MetalFruit : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             InGameUI.Instance.IncrementCombo();
-            print("slice");
             pv--;
             juiceEffect.Play();
             SFXsManager.Instance.PlaySound("Slice");
-
+            Vector3 originalScale = transform.localScale;
+            Vector3 targetScale = originalScale * scaleMultiplier;
+            transform
+                .DOScale(targetScale, duration)
+                .SetLoops(2, LoopType.Yoyo)     // aller + retour
+                .SetEase(Ease.OutBack); 
+            
             if(pv > 0)
             {
                 return;
@@ -85,6 +93,10 @@ public class MetalFruit : MonoBehaviour
             {
                 FindAnyObjectByType<Life>().AddLife();
             }
+            
+
+            // Animation aller-retour (yoyo)
+             
         }
     }
    

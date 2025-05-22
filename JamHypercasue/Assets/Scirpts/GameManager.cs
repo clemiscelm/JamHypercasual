@@ -285,5 +285,6 @@ public class GameManager : MonoBehaviour
         _gameOverMenu.DOFade(1, 0.2f).SetEase(Ease.InFlash);
         _gameOverMenu.interactable = true;
         _gameOverMenu.blocksRaycasts = true;
+        FindAnyObjectByType<Life>().Restart();
     }
 }
