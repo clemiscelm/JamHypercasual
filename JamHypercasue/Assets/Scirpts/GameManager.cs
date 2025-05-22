@@ -160,7 +160,7 @@ public class GameManager : MonoBehaviour
         isGameRunning = false;
         level++;
         
-        //TextLevel.text = "Level " + PlayerData.GetPlayerCurrentLevel().ToString();
+        TextLevel.text = PlayerData.GetPlayerCurrentLevel().ToString();
         
         if (PlayerData.GetPlayerCurrentLevel() == 1)
             maxTime = 10;
