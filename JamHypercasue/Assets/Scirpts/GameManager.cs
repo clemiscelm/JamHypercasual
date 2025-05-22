@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using IIMEngine.SFX;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,6 +23,12 @@ public class GameManager : MonoBehaviour
     private bool needNewGame = false;
     int level = 0;
 
+    [Header("Pause")] 
+    [SerializeField] private CanvasGroup _pauseCanva;
+    [SerializeField] private Button[] _pauseButtons;
+    [SerializeField] private Button[] _unpauseButtons;
+    [SerializeField] private GameObject[] _objectsToPause;
+
     public int score { get; private set; } = 0;
 
     private void Awake()
@@ -31,12 +38,32 @@ public class GameManager : MonoBehaviour
         } else {
             Instance = this;
         }
+
+        foreach (Button el in _pauseButtons)
+        {
+            el.onClick.AddListener(Pause);
+        }
+        
+        foreach (Button el in _unpauseButtons)
+        {
+            el.onClick.AddListener(UnPause);
+        }
     }
 
     private void OnDestroy()
     {
         if (Instance == this) {
             Instance = null;
+        }
+        
+        foreach (Button el in _pauseButtons)
+        {
+            el.onClick.RemoveAllListeners();
+        }
+        
+        foreach (Button el in _unpauseButtons)
+        {
+            el.onClick.RemoveAllListeners();
         }
     }
 
@@ -168,6 +195,24 @@ public class GameManager : MonoBehaviour
             hiscore = score;
             PlayerPrefs.SetFloat("hiscore", hiscore);
         }
+    }
+
+    private void Pause()
+    {
+        foreach (GameObject el in _objectsToPause)
+        {
+            el.SetActive(false);
+        }
+        _pauseCanva.DOFade(1, .2f).SetEase(Ease.InFlash);
+    }
+    
+    private void UnPause()
+    {
+        foreach (GameObject el in _objectsToPause)
+        {
+            el.SetActive(true);
+        }
+        _pauseCanva.DOFade(0, .2f).SetEase(Ease.OutFlash);
     }
 
     public void Explode()
