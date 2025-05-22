@@ -15,6 +15,7 @@ public class Fruit : MonoBehaviour
     private ParticleSystem juiceEffect;
     public bool isLucky = false;
     public bool isBombe = false;
+    public bool isTamere = false;
     public ParticleSystem explosionEffect;
 
     public int points = 1;
@@ -28,6 +29,9 @@ public class Fruit : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (isTamere)
+            return;
+        
         if (!isSliced && FindAnyObjectByType<GameManager>().isGameRunning)
         {
             if(!isBombe)

@@ -11,6 +11,7 @@ public class MetalFruit : MonoBehaviour
     private Collider fruitCollider;
     private ParticleSystem juiceEffect;
     public bool isLucky = false;
+    public bool isTamere = false;
 
     public int points = 1;
     public int pv = 5;
@@ -24,6 +25,9 @@ public class MetalFruit : MonoBehaviour
 
     private void OnDestroy()
     {
+        if(isTamere)
+            return;
+        
         if (!isSliced && FindAnyObjectByType<GameManager>().isGameRunning)
         {
             FindAnyObjectByType<Life>().TakeDamage(1);

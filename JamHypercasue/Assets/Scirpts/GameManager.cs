@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private TextMeshProUGUI TextLevel;
     public bool isGameRunning = false;
-    private bool canNewGame = true;
+    private bool canNewGame = false;
     private bool needNewGame = false;
     private bool isLose = false;
     [SerializeField] private GameObject[] winGameObjects;
@@ -31,10 +31,18 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button[] _unpauseButtons;
     [SerializeField] private GameObject[] _objectsToPause;
 
+    [Header("Lose")] 
+    [SerializeField] private CanvasGroup _gameOverMenu;
+    [SerializeField] private Button _restartButton;
+    [SerializeField] private TMP_Text _scoreGameover;
+
     public int score { get; private set; } = 0;
 
     private void Awake()
     {
+        _restartButton.onClick.AddListener(NeedNewGame);
+        _restartButton.onClick.AddListener(NewGame);
+        
         if (Instance != null) {
             DestroyImmediate(gameObject);
         } else {
@@ -57,6 +65,8 @@ public class GameManager : MonoBehaviour
         if (Instance == this) {
             Instance = null;
         }
+        
+        _restartButton.onClick.RemoveAllListeners();
         
         foreach (Button el in _pauseButtons)
         {
@@ -174,6 +184,20 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
+
+        var fruits = FindObjectsByType<Fruit>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        var Metalfruits = FindObjectsByType<MetalFruit>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
+        foreach (var fruit in fruits)
+        {
+            fruit.isTamere = true;
+            Destroy(fruit.gameObject);
+        }
+        foreach (var fruit in Metalfruits)
+        {
+            fruit.isTamere = true;
+            Destroy(fruit.gameObject);
+        }
+        
         needNewGame = false;
         resetGame();
         Time.timeScale = 1f;
@@ -183,7 +207,9 @@ public class GameManager : MonoBehaviour
         blade.enabled = true;
         spawner.enabled = true;
 
-        
+        _gameOverMenu.DOFade(0, 0.2f).SetEase(Ease.InFlash);
+        _gameOverMenu.interactable = false;
+        _gameOverMenu.blocksRaycasts = false;
     }
 
     private void ClearScene()
@@ -250,11 +276,14 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ExplodeSequence());
     }
 
+    private void NeedNewGame() => needNewGame = true;
     private IEnumerator ExplodeSequence()
     {
         yield return new WaitForSeconds(0.5f);
-        canNewGame = true;
-        
+        canNewGame = false;
+        _scoreGameover.text = time.ToString();  
+        _gameOverMenu.DOFade(1, 0.2f).SetEase(Ease.InFlash);
+        _gameOverMenu.interactable = true;
+        _gameOverMenu.blocksRaycasts = true;
     }
-
 }
