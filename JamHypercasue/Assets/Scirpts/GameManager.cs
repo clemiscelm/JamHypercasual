@@ -104,15 +104,7 @@ public class GameManager : MonoBehaviour
             spawner.gameObject.SetActive(false);
             canNewGame = true;
         }
-        if(canNewGame)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                needNewGame = true;
-                canNewGame = false;
-                
-            }
-        }
+
         slider.value = time / maxTime;
         if(needNewGame)
         {
@@ -120,6 +112,12 @@ public class GameManager : MonoBehaviour
             NewGame();
         }
         
+    }
+
+    public void StartGame()
+    {
+        needNewGame = true;
+        canNewGame = false;
     }
 
     private void resetGame()
@@ -201,14 +199,21 @@ public class GameManager : MonoBehaviour
             el.SetActive(false);
         }
         _pauseCanva.DOFade(1, .2f).SetEase(Ease.InFlash);
+        _pauseCanva.interactable = true;
+        _pauseCanva.blocksRaycasts = true;
     }
     
     private void UnPause()
     {
-        foreach (GameObject el in _objectsToPause)
+        if (isGameRunning)
         {
-            el.SetActive(true);
+            foreach (GameObject el in _objectsToPause)
+            {
+                el.SetActive(true);
+            }
         }
+        _pauseCanva.interactable = false;
+        _pauseCanva.blocksRaycasts = false;
         _pauseCanva.DOFade(0, .2f).SetEase(Ease.OutFlash);
     }
 
