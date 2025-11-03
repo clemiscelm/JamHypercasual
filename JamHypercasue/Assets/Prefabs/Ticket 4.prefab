@@ -5441,5 +5441,9 @@ MonoBehaviour:
   sliced: {fileID: 5143790362946642271}
   isSliced: 0
   isLucky: 0
+  isTamere: 0
   points: 1
   pv: 5
+  scaleMultiplier: 1.2
+  duration: 0.2
+  SoftCurrencyValue: 5
