@@ -1245,7 +1245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3773238571081373971, guid: 2de283652b3129e43a285eaa61668920, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 13.699997
+      value: 13.700012
       objectReference: {fileID: 0}
     - target: {fileID: 3773238571081373971, guid: 2de283652b3129e43a285eaa61668920, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2167,6 +2167,7 @@ MonoBehaviour:
   _gameOverMenu: {fileID: 118471915}
   _restartButton: {fileID: 915563169}
   _scoreGameover: {fileID: 1073106087}
+  skinID: 3
 --- !u!4 &892210725
 Transform:
   m_ObjectHideFlags: 0

@@ -1,10 +1,13 @@
+using System;
 using NaughtyAttributes;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Dummy : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
     [SerializeField] private Rigidbody _rb;
+    [SerializeField] private GameObject[] _headSkins;
     
     private Collider[] _colliders;
     private Rigidbody[] _rbs;
@@ -22,8 +25,24 @@ public class Dummy : MonoBehaviour
         {
             _rotations[i] = _transforms[i].rotation;
         }
+    }
+
+    private void Start()
+    {
+        SetSkin();
+    }
+
+    private void SetSkin()
+    {
+        if(GameManager.Instance.AvailableSkins.Length <= 0)
+            return;
         
-        
+        foreach (GameObject head in _headSkins)
+        {
+            head.SetActive(false);
+        }
+        int id = Random.Range(0, GameManager.Instance.AvailableSkins.Length);
+        _headSkins[GameManager.Instance.AvailableSkins[id]].SetActive(true);
     }
 
     [Button]
@@ -44,6 +63,7 @@ public class Dummy : MonoBehaviour
         {
             _transforms[i].rotation = _rotations[i];
         }
+        SetSkin();
     }
 
     [Button]

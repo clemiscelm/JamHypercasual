@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using IIMEngine.SFX;
 using DG.Tweening;
+using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,10 +39,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button _restartButton;
     [SerializeField] private TMP_Text _scoreGameover;
 
-    public int score { get; private set; } = 0;
+    private int[] _availableSkins;
+    public int[] AvailableSkins => _availableSkins; 
 
+    public int score { get; private set; } = 0;
+    
     private void Awake()
     {
+        InitSkins();
         _restartButton.onClick.AddListener(NeedNewGame);
         _restartButton.onClick.AddListener(NewGame);
         
@@ -58,6 +65,25 @@ public class GameManager : MonoBehaviour
         {
             el.onClick.AddListener(UnPause);
         }
+    }
+
+    public void InitSkins()
+    {
+        List<int> skins = new List<int>();
+        List<int> skinsId = new List<int>();
+        skins.Add(PlayerPrefs.GetInt("Skin_1"));
+        skins.Add(PlayerPrefs.GetInt("Skin_2"));
+        skins.Add(PlayerPrefs.GetInt("Skin_3"));
+        skins.Add(PlayerPrefs.GetInt("Skin_4"));
+        skins.Add(PlayerPrefs.GetInt("Skin_5"));
+        for (int i = 0; i < skins.Count; i++)
+        {
+            if (skins[i] == 1)
+            {
+                skinsId.Add(i);
+            }
+        }
+        _availableSkins = skinsId.ToArray();
     }
 
     private void OnDestroy()
@@ -287,4 +313,22 @@ public class GameManager : MonoBehaviour
         _gameOverMenu.blocksRaycasts = true;
         FindAnyObjectByType<Life>().Restart();
     }
+
+#if UNITY_EDITOR
+
+    [Header("SKins")]
+    [SerializeField] private int skinID;
+    [Button]
+    public void HeadSkinToUnloclk() => PlayerPrefs.SetInt($"Skin_{skinID}", 1);
+
+    [Button]
+    public void ResetSkins()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            PlayerPrefs.SetInt($"Skin_{i}", 0);
+        }
+    }
+    
+#endif
 }
