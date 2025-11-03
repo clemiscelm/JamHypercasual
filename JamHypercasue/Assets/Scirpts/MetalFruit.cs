@@ -16,8 +16,9 @@ public class MetalFruit : MonoBehaviour
 
     public int points = 1;
     public int pv = 5;
-    public float scaleMultiplier = 2f;  // Facteur de grossissement
+    public float scaleMultiplier = 1.2f;  // Facteur de grossissement
     public float duration = 0.2f; 
+    public int SoftCurrencyValue = 5;
 
     private void Awake()
     {
@@ -77,26 +78,24 @@ public class MetalFruit : MonoBehaviour
             SFXsManager.Instance.PlaySound("Slice");
             Vector3 originalScale = transform.localScale;
             Vector3 targetScale = originalScale * scaleMultiplier;
+            print("passe");
             transform
                 .DOScale(targetScale, duration)
                 .SetLoops(2, LoopType.Yoyo)     // aller + retour
                 .SetEase(Ease.OutBack); 
             
-            if(pv > 0)
+            if(pv <= 0)
             {
-                return;
-            }
-            Blade blade = other.GetComponent<Blade>();
-            FindAnyObjectByType<GameManager>().time += points;
-            Slice(blade.direction, blade.transform.position, blade.sliceForce);
-            if(isLucky)
-            {
-                FindAnyObjectByType<Life>().AddLife();
-            }
+                Blade blade = other.GetComponent<Blade>();
+                FindAnyObjectByType<GameManager>().time += points;
+                PlayerData.IncriseSoftCurrency(SoftCurrencyValue);
+                Slice(blade.direction, blade.transform.position, blade.sliceForce);
+                if(isLucky)
+                {
+                    FindAnyObjectByType<Life>().AddLife();
+                }
+            } 
             
-
-            // Animation aller-retour (yoyo)
-             
         }
     }
    
