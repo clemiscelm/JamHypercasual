@@ -17,6 +17,7 @@ public class ShopManager : MonoBehaviour, IStoreListener
 
     void Start()
     {
+        return;
         if (storeController == null)
             InitializePurchasing();
     }

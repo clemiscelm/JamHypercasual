@@ -21,15 +21,17 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         {
             Destroy(gameObject);
         }
-        
-        if (!Advertisement.isInitialized)
-        {
-            Advertisement.Initialize(_gameId, _isTesting, this);
-        }
+    }
+
+    public void InitAdverisement()
+    {
+        // Advertisement.Initialize(_gameId, _isTesting, this);
     }
 
     private IEnumerator Start()
     {
+        Advertisement.Initialize(_gameId, _isTesting, this);
+
         yield return new WaitForSeconds(5f);
         ShowAd();
         yield return new WaitForSeconds(5f);

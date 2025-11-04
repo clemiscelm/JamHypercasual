@@ -7390,7 +7390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99ce002d3ccceb748a6af67d3cbe47d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _isTesting: 1
+  _isTesting: 0
 --- !u!4 &1844126319
 Transform:
   m_ObjectHideFlags: 0
@@ -7426,7 +7426,19 @@ MonoBehaviour:
   Events:
     Initialized:
       m_PersistentCalls:
-        m_Calls: []
+        m_Calls:
+        - m_Target: {fileID: 1844126318}
+          m_TargetAssemblyTypeName: AdManager, Assembly-CSharp
+          m_MethodName: InitAdverisement
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     InitializeFailed:
       m_PersistentCalls:
         m_Calls: []
