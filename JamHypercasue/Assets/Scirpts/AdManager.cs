@@ -22,7 +22,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
             Destroy(gameObject);
         }
         
-        if (!Advertisement.isInitialized && Advertisement.isSupported)
+        if (!Advertisement.isInitialized)
         {
             Advertisement.Initialize(_gameId, _isTesting, this);
         }
