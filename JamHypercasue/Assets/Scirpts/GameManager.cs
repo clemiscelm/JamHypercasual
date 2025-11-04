@@ -107,7 +107,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        print(PlayerData.GetPlayerCurrentLevel());
          SFXsManager.Instance.PlaySound("Ambiance");
         if (PlayerData.GetPlayerCurrentLevel() != 1)
         {
