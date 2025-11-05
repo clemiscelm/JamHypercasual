@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using IIMEngine.SFX;
 using DG.Tweening;
+using IIMEngine.SFX;
 using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.UI;
 
 [DefaultExecutionOrder(-1)]
@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     private bool canNewGame = false;
     private bool needNewGame = false;
     private bool isLose = false;
+    private bool canSkip = false;
     [SerializeField] private GameObject[] winGameObjects;
     int level = 0;
 
@@ -38,18 +39,23 @@ public class GameManager : MonoBehaviour
     [Header("Lose")] 
     [SerializeField] private CanvasGroup _gameOverMenu;
     [SerializeField] private Button _restartButton;
+    [SerializeField] private Button _reviveButton;
     [SerializeField] private TMP_Text _scoreGameover;
+    
 
     private int[] _availableSkins;
     public int[] AvailableSkins => _availableSkins; 
 
     public int score { get; private set; } = 0;
     
+    
     private void Awake()
     {
         InitSkins();
-        _restartButton.onClick.AddListener(NeedNewGame);
+        _restartButton.onClick.AddListener(NeedNewGameNonRewared);
         _restartButton.onClick.AddListener(NewGame);
+        _reviveButton.onClick.AddListener(NeedNewGameRewarded);
+        _reviveButton.onClick.AddListener(NewGame);
         
         if (Instance != null) {
             DestroyImmediate(gameObject);
@@ -94,6 +100,7 @@ public class GameManager : MonoBehaviour
         }
         
         _restartButton.onClick.RemoveAllListeners();
+        _reviveButton.onClick.RemoveAllListeners();
         
         foreach (Button el in _pauseButtons)
         {
@@ -136,7 +143,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         scoreText.text = time.ToString() + " / " + maxTime.ToString();
-        if (time >= maxTime && !isLose)
+        if ((time >= maxTime && !isLose) || (canSkip && !AdManager.Instance.AdDisplaying))
         {
             time = maxTime;
             PlayerData.InccrementPlayerLevel();
@@ -151,12 +158,28 @@ public class GameManager : MonoBehaviour
             canNewGame = true;
         }
 
-        if(canNewGame)
+        if(canNewGame && !AdManager.Instance.AdDisplaying)
         {
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !AdManager.Instance.AdDisplaying)
             {
                 needNewGame = true;
                 canNewGame = false;
+                if (PlayerPrefs.GetString("LastDate") != DateTime.Today.ToString())
+                {
+                    PlayerPrefs.SetInt("AdSes", PlayerPrefs.GetInt("AdSes") + 1);
+                    if((PlayerPrefs.GetInt("AdSes") == 3))
+                    {
+                        PlayerPrefs.SetString("LastDate", DateTime.Today.ToString());
+                        PlayerPrefs.SetInt("AdSes", 0);
+                    }
+                    Debug.Log($"Daily levels {PlayerPrefs.GetInt("AdSes")}");
+                }
+                else
+                {
+                    if(!canSkip)
+                        AdManager.Instance.ShowAd();
+                }
+                
                 foreach (var go in winGameObjects)
                 {
                     go.SetActive(false);
@@ -164,10 +187,10 @@ public class GameManager : MonoBehaviour
                 
             }
         }
+        canSkip = false;
         slider.value = time / maxTime;
-        if(needNewGame)
+        if(needNewGame && !AdManager.Instance.AdDisplaying)
         {
-
             NewGame();
         }
         
@@ -287,6 +310,7 @@ public class GameManager : MonoBehaviour
                 el.SetActive(true);
             }
         }
+        _objectsToPause[0].SetActive(true);
         _pauseCanva.interactable = false;
         _pauseCanva.blocksRaycasts = false;
         _pauseCanva.DOFade(0, .2f).SetEase(Ease.OutFlash);
@@ -302,7 +326,24 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ExplodeSequence());
     }
 
-    private void NeedNewGame() => needNewGame = true;
+    private void NeedNewGameRewarded() => NeedNewGame(true);
+    private void NeedNewGameNonRewared() => NeedNewGame(false);
+
+    private void NeedNewGame(bool canSkipAd)
+    {
+        needNewGame = true;
+        if (canSkipAd)
+        {
+            AdManager.Instance.ShowRewardedAd();
+            canSkip = true;
+            return;
+        }
+        
+        if (PlayerPrefs.GetString("LastDate") == DateTime.Today.ToString())
+        {
+            AdManager.Instance.ShowAd();
+        }
+    }
     private IEnumerator ExplodeSequence()
     {
         yield return new WaitForSeconds(0.5f);
@@ -329,6 +370,13 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt($"Skin_{i}", 0);
         }
     }
-    
+
+    [Button]
+    public void ResetDay()
+    {
+        PlayerPrefs.SetInt("AdSes",0);
+        PlayerPrefs.SetString("LastDate", String.Empty);
+    }
+
 #endif
 }

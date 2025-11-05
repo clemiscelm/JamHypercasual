@@ -8,7 +8,11 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     public static AdManager Instance;
     [SerializeField] private bool _isTesting;
     private const string _androidAdUnitId = "Interstitial_Android";
+    private const string _androidAdRewaredUnitId = "Rewarded_Android";
     private const string _gameId = "5978447";
+
+    private bool _isDisplayingAd;
+    public bool AdDisplaying => _isDisplayingAd;
     private void AdDebug(string message) => Debug.Log($"[ADS]: {message}");
     
     private void Awake()
@@ -28,14 +32,9 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         // Advertisement.Initialize(_gameId, _isTesting, this);
     }
 
-    private IEnumerator Start()
+    private void Start()
     {
         Advertisement.Initialize(_gameId, _isTesting, this);
-
-        yield return new WaitForSeconds(5f);
-        ShowAd();
-        yield return new WaitForSeconds(5f);
-        ShowAd();
     }
 
     public void LoadAd()
@@ -49,6 +48,16 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
             return;
         
         Advertisement.Show(_androidAdUnitId, this);
+        _isDisplayingAd = true;
+    }
+    
+    public void ShowRewardedAd()
+    {
+        if(Advertisement.isShowing)
+            return;
+        
+        Advertisement.Show(_androidAdRewaredUnitId, this);
+        _isDisplayingAd = true;
     }
 
     public void OnUnityAdsAdLoaded(string placementId)
@@ -79,6 +88,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
         AdDebug($"Placement {placementId}  state is : {showCompletionState}");
+        _isDisplayingAd = false;
     }
 
     public void OnInitializationComplete()
@@ -90,6 +100,5 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     public void OnInitializationFailed(UnityAdsInitializationError error, string message)
     {
         AdDebug($"{error} \n {message}");
-        
     }
 }
