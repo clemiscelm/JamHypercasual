@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] public float time = 0f;
     [SerializeField] private float maxTime = 30f;
+    [SerializeField] private float BasemaxTime = 30f;
     [SerializeField] private Slider slider;
     [SerializeField] private TextMeshProUGUI TextLevel;
     public bool isGameRunning = false;
@@ -108,26 +109,26 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
          SFXsManager.Instance.PlaySound("Ambiance");
-        if (PlayerData.GetPlayerCurrentLevel() != 1)
+         int lvl = PlayerData.GetPlayerCurrentLevel();
+        if (lvl != 1)
         {
-            for(int i = 0; i < PlayerData.GetPlayerCurrentLevel() - 1; i++)
+            if(lvl % 5 == 0)
             {
-                if(PlayerData.GetPlayerCurrentLevel() % 5 == 0)
-                {
-                    spawner.bombChance += 0.01f;
-                    spawner.luckyChance -= 0.01f;
-                    spawner.comboChance += 0.01f;
-                    spawner.minSpawnDelay -= 0.005f;
-                    spawner.maxSpawnDelay -= 0.005f;
-                    maxTime += 2f;
-                    if(spawner.bombChance > 0.25f)
-                        spawner.bombChance = 0.25f;
-                    if (spawner.luckyChance < 0)
-                        spawner.luckyChance = 0;
-                    if (spawner.comboChance > 0.25f)
-                        spawner.comboChance = 0.25f;
-                        
-                }
+                spawner.resetChance();
+                maxTime = BasemaxTime;
+                spawner.bombChance += 0.01f * lvl;
+                spawner.luckyChance -= 0.01f * lvl;
+                spawner.comboChance += 0.01f * lvl;
+                spawner.minSpawnDelay -= 0.005f * lvl;
+                spawner.maxSpawnDelay -= 0.005f * lvl;
+                maxTime += 2f * lvl;
+                if(spawner.bombChance > 0.25f)
+                    spawner.bombChance = 0.25f;
+                if (spawner.luckyChance < 0)
+                    spawner.luckyChance = 0;
+                if (spawner.comboChance > 0.25f)
+                    spawner.comboChance = 0.25f;
+                    
             }
         }
     }

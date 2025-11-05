@@ -17,7 +17,6 @@ public class ShopManager : MonoBehaviour, IStoreListener
 
     void Start()
     {
-        return;
         if (storeController == null)
             InitializePurchasing();
     }
@@ -94,7 +93,7 @@ public class ShopManager : MonoBehaviour, IStoreListener
         }
 
         Debug.Log($"Achat réussi : {product.definition.id} | {priceInEuro}€ | +{currencyAmount} currency");
-        PlayerData.IncriseSoftCurrency(currencyAmount);
+        PlayerData.IncriseHardCurrency(currencyAmount);
         // 🔹 Appelle un event si tu veux le traiter ailleurs
         OnPurchaseCompleted?.Invoke(priceInEuro, currencyAmount);
 

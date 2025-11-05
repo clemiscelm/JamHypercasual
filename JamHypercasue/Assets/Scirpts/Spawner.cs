@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(Collider))]
 public class Spawner : MonoBehaviour
@@ -10,6 +12,9 @@ public class Spawner : MonoBehaviour
     public GameObject bombPrefab;
     public GameObject luckyPrefab;
     public GameObject comboPrefab;
+    public float BaseBomeChance;
+    public float BaseLuckyChance;
+    public float BaseComboChance;
     [Range(0f, 1f)]
     public float bombChance = 0.05f;
     [Range(0f, 1f)]
@@ -41,6 +46,21 @@ public class Spawner : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
+    }
+
+    private void Start()
+    {
+        BaseBomeChance = bombChance;
+        BaseLuckyChance = luckyChance;
+        BaseComboChance = comboChance;
+        
+    }
+
+    public void resetChance()
+    {
+        bombChance = BaseBomeChance;
+        luckyChance = BaseLuckyChance;
+        comboChance = BaseComboChance;
     }
 
     private IEnumerator Spawn()
