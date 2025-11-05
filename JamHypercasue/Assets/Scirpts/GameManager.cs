@@ -7,6 +7,7 @@ using NaughtyAttributes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [DefaultExecutionOrder(-1)]
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private CanvasGroup _pauseCanva;
     [SerializeField] private Button[] _pauseButtons;
     [SerializeField] private Button[] _unpauseButtons;
+    [SerializeField] private Button _returnToMainMenu;
     [SerializeField] private GameObject[] _objectsToPause;
 
     [Header("Lose")] 
@@ -57,6 +59,7 @@ public class GameManager : MonoBehaviour
         //_restartButton.onClick.AddListener(NewGame);
         _reviveButton.onClick.AddListener(NeedNewGameRewarded);
         _reviveButton.onClick.AddListener(NewGame);
+        _returnToMainMenu.onClick.AddListener(ReturnToMainMenu);
         
         if (Instance != null) {
             DestroyImmediate(gameObject);
@@ -102,6 +105,7 @@ public class GameManager : MonoBehaviour
         
         _restartButton.onClick.RemoveAllListeners();
         _reviveButton.onClick.RemoveAllListeners();
+        _returnToMainMenu.onClick.RemoveAllListeners();
         
         foreach (Button el in _pauseButtons)
         {
@@ -194,6 +198,11 @@ public class GameManager : MonoBehaviour
         if(needNewGame && !AdManager.Instance.AdDisplaying)
         {
             NewGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            SceneManager.LoadScene(0);
         }
         
     }
@@ -357,6 +366,11 @@ public class GameManager : MonoBehaviour
         _gameOverMenu.interactable = true;
         _gameOverMenu.blocksRaycasts = true;
         FindAnyObjectByType<Life>().Restart();
+    }
+
+    private void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
 #if UNITY_EDITOR
