@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     private bool needNewGame = false;
     private bool isLose = false;
     private bool canSkip = false;
+    private bool SkipAdAfterRewared = false;
     [SerializeField] private GameObject[] winGameObjects;
     int level = 0;
 
@@ -53,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
         InitSkins();
         _restartButton.onClick.AddListener(NeedNewGameNonRewared);
-        _restartButton.onClick.AddListener(NewGame);
+        //_restartButton.onClick.AddListener(NewGame);
         _reviveButton.onClick.AddListener(NeedNewGameRewarded);
         _reviveButton.onClick.AddListener(NewGame);
         
@@ -143,7 +144,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         scoreText.text = time.ToString() + " / " + maxTime.ToString();
-        if ((time >= maxTime && !isLose) || (canSkip && !AdManager.Instance.AdDisplaying))
+        if ((time >= maxTime && !isLose) || canSkip)
         {
             time = maxTime;
             PlayerData.InccrementPlayerLevel();
@@ -176,8 +177,9 @@ public class GameManager : MonoBehaviour
                 }
                 else
                 {
-                    if(!canSkip)
+                    if(!SkipAdAfterRewared)
                         AdManager.Instance.ShowAd();
+                    SkipAdAfterRewared = false;
                 }
                 
                 foreach (var go in winGameObjects)
@@ -233,7 +235,7 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-
+        
         var fruits = FindObjectsByType<Fruit>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         var Metalfruits = FindObjectsByType<MetalFruit>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         foreach (var fruit in fruits)
@@ -331,11 +333,13 @@ public class GameManager : MonoBehaviour
 
     private void NeedNewGame(bool canSkipAd)
     {
+        isLose = false;
         needNewGame = true;
         if (canSkipAd)
         {
             AdManager.Instance.ShowRewardedAd();
             canSkip = true;
+            SkipAdAfterRewared = true;
             return;
         }
         
