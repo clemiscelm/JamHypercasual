@@ -45,17 +45,10 @@ public class AnalyticsManager : MonoBehaviour
         }
     }
 
-    
-    private void OnApplicationPause(bool pause)
+
+    private void Start()
     {
-        if (pause)
-        {
-            EndSession();
-        }
-        else
-        {
-            StartSession();
-        }
+        StartSession();
     }
 
     private void OnApplicationQuit()
