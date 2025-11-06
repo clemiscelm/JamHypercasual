@@ -8,9 +8,12 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 {
     public static AdManager Instance;
     [SerializeField] private bool _isTesting;
-    private const string _androidAdUnitId = "Interstitial_Android";
-    private const string _androidAdRewaredUnitId = "Rewarded_Android";
+    private const string _interstitialId = "Interstitial_Android";
+    private const string _rewardedId = "Rewarded_Android";
     private const string _gameId = "5978447";
+
+    private bool _isInterstitialReady;
+    private bool _isrewardedReady;
 
     private bool _isDisplayingAd;
     public bool AdDisplaying => _isDisplayingAd;
@@ -32,24 +35,25 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 
     public void LoadAd()
     {
-        Advertisement.Load(_androidAdUnitId, this);
+        Advertisement.Load(_interstitialId, this);
+        Advertisement.Load(_rewardedId, this);
     }
 
     public void ShowAd()
     {
-        if(Advertisement.isShowing)
+        if(Advertisement.isShowing || !_isInterstitialReady)
             return;
         
-        Advertisement.Show(_androidAdUnitId, this);
+        Advertisement.Show(_interstitialId, this);
         _isDisplayingAd = true;
     }
     
     public void ShowRewardedAd()
     {
-        if(Advertisement.isShowing)
+        if(Advertisement.isShowing || !_isrewardedReady)
             return;
         
-        Advertisement.Show(_androidAdRewaredUnitId, this);
+        Advertisement.Show(_rewardedId, this);
         _isDisplayingAd = true;
     }
 
@@ -63,7 +67,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
                 AdProvider = AdProvider.UnityAds,
                 PlacementId = placementId,
                 PlacementName = placementId, 
-                PlacementType = placementId.Equals(_androidAdRewaredUnitId, StringComparison.OrdinalIgnoreCase)
+                PlacementType = placementId.Equals(_rewardedId, StringComparison.OrdinalIgnoreCase)
                     ? AdPlacementType.REWARDED
                     : AdPlacementType.INTERSTITIAL,
                 AdCompletionStatus = ConvertAdState(state)
@@ -97,6 +101,15 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     public void OnUnityAdsAdLoaded(string placementId)
     {
         AdDebug($"Ad {placementId} loaded");
+        if (placementId == _interstitialId)
+        {
+            _isInterstitialReady = true;
+        }
+
+        if (placementId == _rewardedId)
+        {
+            _isrewardedReady = true;
+        }
     }
 
     public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
