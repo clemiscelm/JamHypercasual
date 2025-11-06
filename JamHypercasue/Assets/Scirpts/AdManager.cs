@@ -26,17 +26,9 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         {
             Destroy(gameObject);
         }
-    }
-
-    public void InitAdverisement()
-    {
-        // Advertisement.Initialize(_gameId, _isTesting, this);
-    }
-
-    private void Start()
-    {
         Advertisement.Initialize(_gameId, _isTesting, this);
     }
+    
 
     public void LoadAd()
     {

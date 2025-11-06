@@ -406,5 +406,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("LastDate", String.Empty);
     }
 
+    [Button]
+    private void ResetPlayerPref() => PlayerPrefs.DeleteAll();
+
 #endif
 }
