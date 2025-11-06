@@ -3594,7 +3594,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 458877050857165546, guid: 2de283652b3129e43a285eaa61668920, type: 3}
       propertyPath: m_RaycastTarget
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 571839105563967100, guid: 2de283652b3129e43a285eaa61668920, type: 3}
       propertyPath: m_AnchorMax.y
@@ -3802,7 +3802,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2265050409916752526, guid: 2de283652b3129e43a285eaa61668920, type: 3}
       propertyPath: m_RaycastTarget
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2339910002870633961, guid: 2de283652b3129e43a285eaa61668920, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4122,7 +4122,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5257049913645040329, guid: 2de283652b3129e43a285eaa61668920, type: 3}
       propertyPath: m_RaycastTarget
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5301391674211939369, guid: 2de283652b3129e43a285eaa61668920, type: 3}
       propertyPath: m_AnchorMax.y
@@ -4186,7 +4186,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5859544245973643595, guid: 2de283652b3129e43a285eaa61668920, type: 3}
       propertyPath: m_RaycastTarget
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5872764522565081333, guid: 2de283652b3129e43a285eaa61668920, type: 3}
       propertyPath: m_AnchorMax.y
@@ -8635,6 +8635,7 @@ GameObject:
   - component: {fileID: 892210725}
   - component: {fileID: 892210724}
   - component: {fileID: 892210726}
+  - component: {fileID: 892210727}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8718,6 +8719,30 @@ MonoBehaviour:
   - {fileID: 15754988}
   _lifeColor: {r: 0.78431374, g: 0.40784314, b: 0.6156863, a: 1}
   _noLifeColor: {r: 0.85490197, g: 0.85490197, b: 0.85490197, a: 1}
+--- !u!114 &892210727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 892210723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d94b93b32e10188419629795f25734b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UseCustomServices: 0
+  ServicesIdentifier: 
+  InitializeOnStart: 1
+  UseCustomEnvironment: 0
+  EnvironmentName: production
+  Events:
+    Initialized:
+      m_PersistentCalls:
+        m_Calls: []
+    InitializeFailed:
+      m_PersistentCalls:
+        m_Calls: []
 --- !u!1 &897091445
 GameObject:
   m_ObjectHideFlags: 0
@@ -14582,6 +14607,7 @@ GameObject:
   - component: {fileID: 1844126319}
   - component: {fileID: 1844126318}
   - component: {fileID: 1844126320}
+  - component: {fileID: 1844126321}
   m_Layer: 0
   m_Name: ADmanager
   m_TagString: Untagged
@@ -14641,6 +14667,18 @@ MonoBehaviour:
     InitializeFailed:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &1844126321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844126317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a451887959c0ee4c941de13e23064a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1844688589 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5709858833070177139, guid: 2de283652b3129e43a285eaa61668920, type: 3}
