@@ -13,6 +13,7 @@ public class Dummy : MonoBehaviour
     private Rigidbody[] _rbs;
     private Transform[] _transforms;
     private Quaternion[] _rotations;
+    public int IDSkinChose = 0;
     
     private void Awake()
     {
@@ -41,8 +42,9 @@ public class Dummy : MonoBehaviour
         {
             head.SetActive(false);
         }
+        
         int id = Random.Range(0, GameManager.Instance.AvailableSkins.Length);
-        _headSkins[GameManager.Instance.AvailableSkins[id]].SetActive(true);
+        _headSkins[GameManager.Instance.AvailableSkins[GameManager.Instance.IDskinChose]].SetActive(true);
     }
 
     [Button]

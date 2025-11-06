@@ -2880,7 +2880,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1631803719}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.40815154
+  m_Size: 0.39931607
   m_NumberOfSteps: 11
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4522,7 +4522,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1747047163332297393, guid: 2de283652b3129e43a285eaa61668920, type: 3}
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3733751291199499831, guid: 2de283652b3129e43a285eaa61668920, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 934383212020688286, guid: 2de283652b3129e43a285eaa61668920, type: 3}
       insertIndex: 2
@@ -4903,8 +4904,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 4.39, y: -134.7}
-  m_SizeDelta: {x: 597.65, y: 854.6}
+  m_AnchoredPosition: {x: 4.39, y: -125.44}
+  m_SizeDelta: {x: 597.65, y: 836.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &474047230
 MonoBehaviour:
@@ -8673,7 +8674,7 @@ MonoBehaviour:
   - {fileID: 430080892}
   - {fileID: 430080891}
   - {fileID: 430080890}
-  _returnToMainMenu: {fileID: 0}
+  _returnToMainMenu: {fileID: 430080892}
   _objectsToPause:
   - {fileID: 892210723}
   - {fileID: 296088992}
@@ -8682,6 +8683,7 @@ MonoBehaviour:
   _restartButton: {fileID: 915563169}
   _reviveButton: {fileID: 1293216299}
   _scoreGameover: {fileID: 1073106087}
+  IDskinChose: 0
   skinID: 3
 --- !u!4 &892210725
 Transform:
@@ -13249,7 +13251,7 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1314403654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5918485}
+  m_AnchorMin: {x: 0, y: 0.6006839}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -14551,7 +14553,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3511b0f59d5b6244eb60c40ee8ed9dba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttons: []
+  buttons:
+  - {fileID: 1498338141}
+  - {fileID: 1905378821}
+  - {fileID: 1120407513}
+  - {fileID: 897091447}
+  - {fileID: 433193202}
+  buttonsBuy: []
 --- !u!114 &1813109776 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4695946943349377660, guid: 2de283652b3129e43a285eaa61668920, type: 3}

@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Button _restartButton;
     [SerializeField] private Button _reviveButton;
     [SerializeField] private TMP_Text _scoreGameover;
+    public int IDskinChose = 0;
     
 
     private int[] _availableSkins;
