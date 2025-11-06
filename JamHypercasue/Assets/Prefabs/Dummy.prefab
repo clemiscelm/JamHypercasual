@@ -2652,6 +2652,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7635826562936255635, guid: ac88b2fd5e54dbd4992d6cbc1558a0cc, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: ac88b2fd5e54dbd4992d6cbc1558a0cc, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 4db49c27bf7ce614f8948d39a0b57878, type: 2}
@@ -2736,6 +2740,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0c689b53e9b536543aaaabd7fc5aefe4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: 0c689b53e9b536543aaaabd7fc5aefe4, type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7635826562936255635, guid: 0c689b53e9b536543aaaabd7fc5aefe4, type: 3}
@@ -2828,6 +2836,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d0b3d4fb070c0af4981f01296d4a9486, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4516506932847572036, guid: d0b3d4fb070c0af4981f01296d4a9486, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4516506932847572036, guid: d0b3d4fb070c0af4981f01296d4a9486, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -2924,6 +2936,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -4516506932847572036, guid: d0b3d4fb070c0af4981f01296d4a9486, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d0b3d4fb070c0af4981f01296d4a9486, type: 3}
       propertyPath: m_Name
       value: goku hair
@@ -3014,6 +3030,10 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: d0b3d4fb070c0af4981f01296d4a9486, type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4516506932847572036, guid: d0b3d4fb070c0af4981f01296d4a9486, type: 3}
+      propertyPath: m_CastShadows
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -4516506932847572036, guid: d0b3d4fb070c0af4981f01296d4a9486, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
