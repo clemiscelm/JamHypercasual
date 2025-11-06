@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour
     private bool isLose = false;
     private bool canSkip = false;
     private bool SkipAdAfterRewared = false;
+    private bool levelSkipped = false;
     [SerializeField] private GameObject[] winGameObjects;
     int level = 0;
 
@@ -194,12 +195,12 @@ public class GameManager : MonoBehaviour
                 
             }
         }
-        canSkip = false;
         slider.value = time / maxTime;
         if(needNewGame && !AdManager.Instance.AdDisplaying)
         {
             NewGame();
         }
+        canSkip = false;
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -245,6 +246,9 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
+        
+        AnalyticsManager.Instance.OnLevelPass(PlayerPrefs.GetInt(ProjectConst.PlayerLevel), levelSkipped);
+        levelSkipped = false;
         
         var fruits = FindObjectsByType<Fruit>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
         var Metalfruits = FindObjectsByType<MetalFruit>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
@@ -338,7 +342,12 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ExplodeSequence());
     }
 
-    private void NeedNewGameRewarded() => NeedNewGame(true);
+    private void NeedNewGameRewarded()
+    {
+        levelSkipped = true;
+        NeedNewGame(true);
+    }
+
     private void NeedNewGameNonRewared() => NeedNewGame(false);
 
     private void NeedNewGame(bool canSkipAd)

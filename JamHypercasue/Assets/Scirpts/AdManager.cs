@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.Services.Analytics;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
@@ -60,6 +61,47 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         _isDisplayingAd = true;
     }
 
+    private void RecordAdImpression(string placementId, UnityAdsShowCompletionState state)
+    {
+        try
+        {
+            // Remplir selon la doc standard de Unity Analytics
+            var adImpression = new AdImpressionEvent
+            {
+                AdProvider = AdProvider.UnityAds,
+                PlacementId = placementId,
+                PlacementName = placementId, 
+                PlacementType = placementId.Equals(_androidAdRewaredUnitId, StringComparison.OrdinalIgnoreCase)
+                    ? AdPlacementType.REWARDED
+                    : AdPlacementType.INTERSTITIAL,
+                AdCompletionStatus = ConvertAdState(state)
+            };
+
+            AnalyticsService.Instance.RecordEvent(adImpression);
+            AnalyticsService.Instance.Flush();
+            AdDebug($"Recorded adImpression for placement {placementId}");
+        }
+        catch (Exception e)
+        {
+            AdDebug($"Failed to record adImpression: {e}");
+        }
+    }
+
+    private AdCompletionStatus ConvertAdState(UnityAdsShowCompletionState s)
+    {
+        switch (s)
+        {
+            case UnityAdsShowCompletionState.SKIPPED:
+                return AdCompletionStatus.Partial;
+            case UnityAdsShowCompletionState.COMPLETED:
+                return AdCompletionStatus.Completed;
+            case UnityAdsShowCompletionState.UNKNOWN:
+                return AdCompletionStatus.Incomplete;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(s), s, null);
+        }
+    }
+    
     public void OnUnityAdsAdLoaded(string placementId)
     {
         AdDebug($"Ad {placementId} loaded");
@@ -88,6 +130,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
         AdDebug($"Placement {placementId}  state is : {showCompletionState}");
+        RecordAdImpression(placementId, showCompletionState);
         _isDisplayingAd = false;
     }
 
