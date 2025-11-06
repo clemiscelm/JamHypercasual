@@ -79,6 +79,15 @@ public class ButtonsShop : MonoBehaviour
         else if(price == 80)
             PlayerData.IncriseSoftCurrency(1000);
     }
+
+    private void ResetSkins()
+    {
+        Dummy[] prout = FindObjectsByType<Dummy>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        foreach (var dummy in prout)
+        {
+            dummy.SetSkin();
+        }
+    }
     public void ClickButtonSoft(int price)
     {
         PlayerData.DeacriseSoftCurrency(price);
@@ -93,6 +102,7 @@ public class ButtonsShop : MonoBehaviour
                 }
                 buttons[0].GetComponentInChildren<TextMeshProUGUI>().text = "SELECTED";
                 buttons[0].GetComponentsInChildren<Image>()[1].enabled = false;
+                ResetSkins();
                 return;
             }
             if (!CanBuySoft(price))
@@ -109,6 +119,7 @@ public class ButtonsShop : MonoBehaviour
             GameManager.Instance.IDskinChose = 3;
             //skin sayan rouge
             PlayerPrefs.SetInt("Skin_3", 1);
+            ResetSkins();
         }
         else if (price == 10000)
         {
@@ -121,6 +132,7 @@ public class ButtonsShop : MonoBehaviour
                 }
                 buttons[1].GetComponentInChildren<TextMeshProUGUI>().text = "SELECTED";
                 buttons[1].GetComponentsInChildren<Image>()[1].enabled = false;
+                ResetSkins();
                 return;
             }
             if (!CanBuySoft(price))
@@ -134,6 +146,7 @@ public class ButtonsShop : MonoBehaviour
             buttons[1].GetComponentsInChildren<Image>()[1].enabled = false;
             GameManager.Instance.IDskinChose = 2;
             PlayerPrefs.SetInt("Skin_2", 1);
+            ResetSkins();
             //skin sayan gris
         }
     }
@@ -153,7 +166,7 @@ public class ButtonsShop : MonoBehaviour
             buttons[2].GetComponentInChildren<TextMeshProUGUI>().text = "SELECTED";
             buttons[2].GetComponentsInChildren<Image>()[1].enabled = false;
                 print("change");
-            
+                ResetSkins();
             return;
         }
         if (!CanBuyHard(price))
@@ -170,6 +183,7 @@ public class ButtonsShop : MonoBehaviour
         PlayerPrefs.SetInt("Skin_5", 1);
         GameManager.Instance.IDskinChose = 5;
         PlayerData.DeacriseHardCurrency(price);
+        ResetSkins();
     }
     public void ClickButtonSayanGold()
     {
@@ -182,6 +196,7 @@ public class ButtonsShop : MonoBehaviour
             }
             buttons[3].GetComponentInChildren<TextMeshProUGUI>().text = "SELECTED";
             buttons[3].GetComponentsInChildren<Image>()[1].enabled = false;
+            ResetSkins();
             return;
         }
 
@@ -199,6 +214,7 @@ public class ButtonsShop : MonoBehaviour
         
         PlayerPrefs.SetInt("Skin_4", 1);
         PlayerData.DeacriseHardCurrency(price);
+        ResetSkins();
     }
     public void ClickButtonNaruto()
     {
@@ -211,8 +227,7 @@ public class ButtonsShop : MonoBehaviour
             }
             buttons[4].GetComponentsInChildren<Image>()[1].enabled = false;
             buttons[4].GetComponentInChildren<TextMeshProUGUI>().text = "SELECTED";
-            GameManager.Instance.IDskinChose = 4;
-            
+            ResetSkins();
             return;
         }
 
@@ -231,6 +246,7 @@ public class ButtonsShop : MonoBehaviour
         PlayerPrefs.SetInt("Skin_1", 1);
         GameManager.Instance.IDskinChose = 1;
         PlayerData.DeacriseHardCurrency(price);
+        ResetSkins();
     }
 
     public void ClickButtonAdd()

@@ -33,9 +33,9 @@ public class Dummy : MonoBehaviour
         SetSkin();
     }
 
-    private void SetSkin()
+    public void SetSkin()
     {
-        if(GameManager.Instance.AvailableSkins.Length <= 0)
+        if(GameManager.Instance.AvailableSkins.Length <= 0 || GameManager.Instance.IDskinChose <= 0)
             return;
         
         foreach (GameObject head in _headSkins)
@@ -43,8 +43,8 @@ public class Dummy : MonoBehaviour
             head.SetActive(false);
         }
         
-        int id = Random.Range(0, GameManager.Instance.AvailableSkins.Length);
-        _headSkins[GameManager.Instance.AvailableSkins[GameManager.Instance.IDskinChose]].SetActive(true);
+       
+        _headSkins[GameManager.Instance.IDskinChose - 1].SetActive(true);
     }
 
     [Button]
