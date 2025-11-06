@@ -8,8 +8,8 @@ public class Currencyupdate : MonoBehaviour
    
    void Update()
    {
-      HardCurrency.text = "Gems: " + PlayerData.GetHardCurrency().ToString();
-      softCurrency.text = "Coins: " + PlayerData.GetSoftCurrency().ToString();
+      HardCurrency.text = PlayerData.GetHardCurrency().ToString();
+      softCurrency.text = PlayerData.GetSoftCurrency().ToString();
    }
 
    

@@ -86,6 +86,8 @@ public class MenuManager : MonoBehaviour
     {
         if (value)
         {
+            _menuCanva.gameObject.SetActive(false);
+            _settings.gameObject.SetActive(false);
             _shop.gameObject.SetActive(true);
             _shop.DOFade(1, .2f).SetEase(Ease.InOutFlash);
             _shop.interactable = true;
@@ -93,6 +95,8 @@ public class MenuManager : MonoBehaviour
         }
         else
         {
+            _menuCanva.gameObject.SetActive(true);
+            _settings.gameObject.SetActive(true);
             _shop.gameObject.SetActive(false);
             _shop.DOFade(0, .2f).SetEase(Ease.InOutFlash);
             _shop.interactable = false;

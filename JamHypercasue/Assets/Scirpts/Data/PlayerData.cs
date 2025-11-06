@@ -29,6 +29,8 @@ public static class PlayerData
     }
     
     public static void IncriseHardCurrency(int amount) => PlayerPrefs.SetInt(ProjectConst.HardCurrency, PlayerPrefs.GetInt(ProjectConst.HardCurrency) + amount);
+    public static void DeacriseHardCurrency(int amount) => PlayerPrefs.SetInt(ProjectConst.HardCurrency, PlayerPrefs.GetInt(ProjectConst.HardCurrency) + amount);
+    public static void DeacriseSoftCurrency(int amount) => PlayerPrefs.SetInt(ProjectConst.SoftCurrency, PlayerPrefs.GetInt(ProjectConst.SoftCurrency) + amount);
     public static void IncriseSoftCurrency(int amount) => PlayerPrefs.SetInt(ProjectConst.SoftCurrency, PlayerPrefs.GetInt(ProjectConst.SoftCurrency) + amount);
 
     public static void InccrementPlayerLevel() => PlayerPrefs.SetInt(ProjectConst.PlayerLevel, PlayerPrefs.GetInt(ProjectConst.PlayerLevel) + 1);
