@@ -12,10 +12,13 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button _BackShopButton;
     [SerializeField] private TMP_Text _levelIndicator;
     [SerializeField] private RectTransform _iconRect;
-
     [Header("Settings")] 
     [SerializeField] private CanvasGroup _settings;
     [SerializeField] private CanvasGroup _shop;
+    [SerializeField] private CanvasGroup _credit;
+    [Header("Crédit")]
+    [SerializeField] private Button _creditButton;
+    [SerializeField] private Button _BackCreditButton;
 
     private Quaternion _rotation;
 
@@ -28,6 +31,8 @@ public class MenuManager : MonoBehaviour
         _BackShopButton.onClick.AddListener(() => OpenShop(false));
         _rotation = _iconRect.transform.rotation;
         SetMainMenuActive(true);
+        _creditButton.onClick.AddListener(() => OpenCredit(true));
+        _BackCreditButton.onClick.AddListener(() => OpenCredit(false));
     }
 
     private void OnDestroy()
@@ -36,6 +41,7 @@ public class MenuManager : MonoBehaviour
         _settingsButton.onClick.RemoveAllListeners();
         _ShopButton.onClick.RemoveAllListeners();
         _BackShopButton.onClick.RemoveAllListeners();
+        _creditButton.onClick.RemoveAllListeners();
     }
 
 
@@ -103,4 +109,26 @@ public class MenuManager : MonoBehaviour
             _shop.blocksRaycasts = false;
         }
     }
+    private void OpenCredit(bool value)
+    {
+        if (value)
+        {
+            _menuCanva.gameObject.SetActive(false);
+            _settings.gameObject.SetActive(false);
+            _shop.gameObject.SetActive(false);
+            _credit.gameObject.SetActive(true);
+            _shop.DOFade(1, .2f).SetEase(Ease.InOutFlash);
+            
+        }
+        else
+        {
+            _menuCanva.gameObject.SetActive(true);
+            _settings.gameObject.SetActive(true);
+            _shop.gameObject.SetActive(false);
+            _credit.gameObject.SetActive(false);
+            _shop.DOFade(0, .2f).SetEase(Ease.InOutFlash);
+            
+        }
+    }
+    
 }
